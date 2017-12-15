@@ -49,7 +49,7 @@ public class oyunTahtasi {
         String[] k = koordinat.split(",");
         satir = Integer.parseInt(k[0]);
         sutun = Integer.parseInt(k[1]);
-        if(tahta[satir][sutun]!='-'||tahta[satir][sutun]!='X'||tahta[satir][sutun]!='O'){
+        if(tahta[satir][sutun]=='-'&&tahta[satir][sutun]!='X'&&tahta[satir][sutun]!='O'){
             tahta[satir][sutun] = oyuncu;
             return true;
         }
@@ -59,11 +59,63 @@ public class oyunTahtasi {
     boolean beraberlik_Kontrol(){
         for(int i=0;i<kenar;i++)
             for(int j=0;j<kenar;j++)
-                if(tahta[i][j]=='-')
-                    return true;         
-        return false;        
+                if(tahta[i][j]=='-'&&tahta[i][j]!='X'&&tahta[i][j]!='O')
+                    return false;         
+        return true;        
     }
-//    boolean kazanan(char oyuncu){
-//        
-//    }
+    boolean kazanan(char oyuncu){
+         if(capraz_Bak(oyuncu))
+             return true;
+         else if(satir_Bak(oyuncu))
+             return true;
+         else if(sutun_Bak(oyuncu))
+             return true;
+         else
+             return false;
+    }
+    boolean capraz_Bak(char oyuncu){
+        int sayac=0;
+        for(int i=0;i<kenar;i++)
+            if(tahta[i][i]==oyuncu)
+                sayac++;
+        
+        if(sayac==kenar)
+            return true;
+        sayac=0;
+        for(int j=0;j<kenar;j++)
+            if(tahta[j][kenar-1-j]==oyuncu)
+                sayac++;
+         if(sayac==kenar)
+            return true;
+         
+         return false;
+    }
+    boolean satir_Bak(char oyuncu){
+        int sayac=0;
+        for(int i=0;i<kenar;i++){
+            for(int j=0;j<kenar;j++){
+                if(tahta[i][j]==oyuncu)
+                    sayac++;
+            }
+            if(sayac==kenar)
+                return true;
+            else
+                sayac=0;
+        }
+        return false;
+    }
+    boolean sutun_Bak(char oyuncu){
+        int sayac=0;
+        for(int i=0;i<kenar;i++){
+            for(int j=0;j<kenar;j++){
+                if(tahta[j][i]==oyuncu)
+                    sayac++;
+            }
+            if(sayac==kenar)
+                return true;
+            else
+                sayac=0;
+        }
+        return false;
+    } 
 }
